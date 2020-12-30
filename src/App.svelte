@@ -6,13 +6,10 @@
 
 	export let name;
 	let container;
-	const onClick = () => {
-		name = name === 'World' ? 'Test Name' : 'World';
-	}
-	$: props = {
-		name,
-		onClick
-	};
+	const onClick = () => name = name === 'World' ? 'Test Name' : 'World';
+	
+	$: props = { name, onClick };
+	
 	/**
 	 * It should be noted that we're not creating the React component using onMount() method.
 	 * This is because if there are any changes in the props, we want the React component to be updated.
@@ -21,6 +18,7 @@
 	afterUpdate(() => {
 		ReactDOM.render(React.createElement(ToggleButton, props), container);
 	});
+	
 	onDestroy(() => {
 		ReactDOM.unmountComponentAtNode(container);
 	});
@@ -36,11 +34,5 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>
