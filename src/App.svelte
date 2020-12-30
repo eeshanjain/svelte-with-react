@@ -1,0 +1,41 @@
+<script>
+	import { afterUpdate, onDestroy } from 'svelte';
+	import ToggleButton from './components/ToggleButton';
+	import ReactDOM from 'react-dom';
+	import React from 'react';
+
+	export let name;
+	let container;
+	const onClick = () => {
+		name = name === 'World' ? 'Test Name' : 'World';
+	}
+	$: props = {
+		name,
+		onClick
+	};
+	afterUpdate(() => {
+		ReactDOM.render(React.createElement(ToggleButton, props), container);
+	});
+	onDestroy(() => {
+		ReactDOM.unmountComponentAtNode(container);
+	});
+</script>
+
+<main>
+	<div bind:this={container} />
+</main>
+
+<style>
+	main {
+		text-align: center;
+		padding: 1em;
+		max-width: 240px;
+		margin: 0 auto;
+	}
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
+</style>
