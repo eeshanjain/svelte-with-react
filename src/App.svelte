@@ -13,6 +13,11 @@
 		name,
 		onClick
 	};
+	/**
+	 * It should be noted that we're not creating the React component using onMount() method.
+	 * This is because if there are any changes in the props, we want the React component to be updated.
+	 * Therefore, we create the component by using the afterUpdate() method.
+	*/
 	afterUpdate(() => {
 		ReactDOM.render(React.createElement(ToggleButton, props), container);
 	});
