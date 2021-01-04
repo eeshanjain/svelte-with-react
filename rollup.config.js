@@ -1,5 +1,5 @@
 import svelte from 'rollup-plugin-svelte';
-import commonjs from '@rollup/plugin-commonjs';
+import commonjs from 'rollup-plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
@@ -37,6 +37,7 @@ export default {
 		name: 'app',
 		file: 'public/build/bundle.js'
 	},
+	external: [ '@spredfast/button' ],
 	plugins: [
 		svelte({
 			compilerOptions: {
@@ -60,7 +61,9 @@ export default {
 			browser: true,
 			dedupe: ['svelte']
 		}),
-		commonjs(),
+		commonjs({
+			'../../node_modules/prop-types/index.js': ['element', 'elementType', 'PropTypes']
+		}),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
